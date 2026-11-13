@@ -225,7 +225,7 @@ function show(){
   if(busy)busy();
   var from=cur,f=first;first=false;cur=i;
   var sec=document.getElementById(P[i]),old=document.getElementById(P[from]);
-  var last=i===P.length-1;nx.innerHTML=last?RF:AR;nx.setAttribute('aria-label',last?'Start over':'Next page');
+  var last=i===P.length-1;nx.innerHTML=last?RF:AR;nx.setAttribute('aria-label',last?'Start over':'Next page');nx.hidden=i===0;
 
   if(f||i===from||RM.matches){finalize(i);stagger(sec,f?120:0);return}
 
