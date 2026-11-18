@@ -126,11 +126,11 @@ body.b .mu{color:var(--bt)}
 .rv .in>*{animation:rise .75s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms)}
 .rv .in>.bm{animation:rise .75s cubic-bezier(.2,.8,.2,1) both,sp2 24s linear infinite;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms),0s}
 .rv .in>h1{animation:none}
-.rv h2,.rv .in>h2{animation:ink .9s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms + 40ms)}
-.rv h1.sc span{width:fit-content;margin-inline:auto;animation:ink 1s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms)}
+.rv h2,.rv .in>h2{animation:ink .9s cubic-bezier(.5,0,.2,1) backwards;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms + 40ms)}
+.rv h1.sc span{width:fit-content;margin-inline:auto;padding-inline:.3em;animation:ink 1s cubic-bezier(.5,0,.2,1) backwards;animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms)}
 .rv h1.sc span+span{animation-delay:calc(var(--d,0ms) + var(--i,0)*60ms + 260ms)}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes ink{from{clip-path:inset(-20% 100% -20% -10%)}to{clip-path:inset(-20% -10% -20% -10%)}}
+@keyframes ink{from{clip-path:inset(-50% 100% -50% -50%)}to{clip-path:inset(-50% -100% -50% -50%)}}
 @media (prefers-reduced-motion:reduce){.rv .in>*,.rv h2,.rv h1.sc span{animation:none!important}.pg{transition:none}}
 /* ---------- liquid glass: mute button + refraction overrides ---------- */
 .mu{border:0;overflow:hidden;isolation:isolate;color:var(--pt);background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.01));-webkit-backdrop-filter:blur(2px) saturate(1.5) brightness(1.03);backdrop-filter:blur(2px) saturate(1.5) brightness(1.03);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),inset 2px 3px 5px rgba(255,255,255,.3),inset -2px -3px 6px rgba(35,84,142,.16),0 8px 22px rgba(35,84,142,.2),0 2px 6px rgba(0,0,0,.08);transition:color .5s,background .4s,scale .35s cubic-bezier(.3,1.7,.5,1)}.mu::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:50%;background:radial-gradient(120% 90% at 28% 10%,rgba(255,255,255,.2),rgba(255,255,255,0) 46%),radial-gradient(90% 70% at 75% 100%,rgba(255,255,255,.07),rgba(255,255,255,0) 60%)}.mu:active{scale:.9}body.b .mu{color:var(--bt);background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(255,255,255,.008));-webkit-backdrop-filter:blur(2px) saturate(1.1) brightness(1.05);backdrop-filter:blur(2px) saturate(1.1) brightness(1.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),inset 2px 3px 5px rgba(255,255,255,.2),inset -2px -3px 6px rgba(0,0,0,.18),0 8px 22px rgba(0,0,0,.26),0 2px 6px rgba(0,0,0,.12)}@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.mu{background:rgba(255,255,255,.4)}body.b .mu{background:rgba(255,255,255,.1)}}
@@ -336,6 +336,14 @@ f.appendChild(im);f.appendChild(dm);svg.appendChild(f)});
 document.body.appendChild(svg);
 document.documentElement.classList.add('lg')
 }catch(e){}
+})();
+</script>
+<script>
+(function(){
+  function nudge(){var h=document.querySelectorAll('h1.sc span');h.forEach(function(e){e.style.transform='translateZ(0)';void e.offsetWidth;e.style.transform=''})}
+  document.addEventListener('animationend',function(e){if(e.target.closest&&e.target.closest('h1.sc'))nudge()});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setTimeout(nudge,50)});
+  window.addEventListener('load',function(){setTimeout(nudge,1500)});
 })();
 </script>
 </body>
